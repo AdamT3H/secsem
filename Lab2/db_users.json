@@ -1,0 +1,33 @@
+[
+  {
+    "firstName": "firstName-1",
+    "lastName": "lastName-1",
+    "login": "login-1",
+    "password": "password-1",
+    "token": "0a319e3f-fa79-4946-b032-112438833051",
+    "role": "Customer"
+  },
+  {
+    "firstName": "firstName-1",
+    "lastName": "lastName-1",
+    "login": "login-2",
+    "password": "password-1",
+    "token": "5094c0dd-0144-43d7-93b5-a53b66151e78"
+  },
+  {
+    "firstName": "firstName-1",
+    "lastName": "lastName-1",
+    "login": "login-3",
+    "password": "password-1",
+    "token": "559a9dab-9ac4-4ca2-a11b-66045183dc8d",
+    "role": "Customer1"
+  },
+  {
+    "firstName": "firstName-1",
+    "lastName": "lastName-1",
+    "login": "login-4",
+    "password": "password-1",
+    "token": "d50c6eb9-eed3-4898-befa-688aeb87e77c",
+    "role": "Customer"
+  }
+]

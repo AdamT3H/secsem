@@ -11,7 +11,7 @@ UsersRouter.post('/users', (req, res) => {
     // console.log(`body`, JSON.stringify(body));
   
     const isUserExist = USERS.some(el => el.login === body.login);
-    // const user = USERS.find(el => el.login === body.login && el.password === body.password);
+    const user = USERS.find(el => el.login === body.login && el.password === body.password);
 
     // const userRole = "Customer";
   
@@ -30,18 +30,66 @@ UsersRouter.post('/users', (req, res) => {
 
     // console.log(USERS)
 
-    // const recreateUser = {
-    //     ...body,
-    //     role: "Customer",
-    // };
+    const recreateUser = {
+        ...body,
+        role: "Customer",
+    };
       
     //    ORDERS.push(recreateUser);
+
+    // user.role = role;
+    // USERS.save(user.login, { role });
   
-    USERS.push(body);
-    // USERS.push(recreateUser);
+    // USERS.push(body);
+    USERS.push(recreateUser);
     console.log(USERS)
   
     res.status(200).send({ message: 'User was created' });
+});
+
+UsersRouter.post('/admin', (req, res) => {
+
+  const { body, headers } = req;
+
+  const isAdminExist = USERS.some(el => el.login === body.login);
+
+  if (isAdminExist) {
+    return res.status(400).send({ message: `User with login ${body.login} already exists` })
+  };
+
+  headers.SUPER_PASSWORD = "dfdf";
+  console.log(headers.SUPER_PASSWORD)
+
+  const recreateAdmin = {
+    ...body,
+    role: "Admin",
+  };
+  
+  USERS.push(recreateAdmin);
+
+  res.status(200).send({message: 'Admin was created' });
+
+});
+
+UsersRouter.post('/drivers', (req, res) => {
+
+  const { body } = req;
+
+  const isdriverExist = USERS.some(el => el.login === body.login);
+
+  if (isdriverExist) {
+    return res.status(400).send({ message: `User with login ${body.login} already exists` })
+  };
+
+  const recreateDriver = {
+    ...body,
+    role: "Driver",
+  };
+  
+  USERS.push(recreateDriver);
+
+  res.status(200).send({message: 'Driver was created' });
+
 });
 
 UsersRouter.get('/users', (req, res) => {
@@ -67,22 +115,13 @@ UsersRouter.post('/login', (req, res) => {
 
     const role = "Customer"
 
-    user.role = role;
     user.token = token;
-    USERS.save(user.login, { token, role });
+    USERS.save(user.login, { token});
   
     return res.status(200).send({
       token,
       role,
       message: 'User was login'
     });
-});
-
-UsersRouter.post('/admin', (req, res) => {
-    const { body } = req;
-  
-
-  
-    return res.status(200).send();
 });
 

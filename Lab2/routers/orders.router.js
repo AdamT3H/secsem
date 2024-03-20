@@ -114,17 +114,17 @@ OrdersRouter.post('/orders', authorizationMiddleware, (req, res) => {
   createdAt,
   status: "Active",
   id: crypto.randomUUID(),
-  distance: roundedDistance + ' Km'
+  distance: roundedDistance + ' Km',
+  price: " "
  };
 
- ORDERS.push(order);
+//  ORDERS.push(order);
 
  switch(body.type){
 
   case "standart":
 
-    order.distance = roundedDistance * 2.5;;
-    console.log(ORDERS.distance)
+    order.price = roundedDistance * 2.5;
 
     console.log("You have to pay an extra 2.5 distance for standart");
 
@@ -134,8 +134,7 @@ OrdersRouter.post('/orders', authorizationMiddleware, (req, res) => {
 
   case "lite":
 
-    order.distance = roundedDistance * 1.5;
-    console.log(ORDERS.distance)
+    order.price = roundedDistance * 1.5;
 
     console.log("You have to pay an extra 1.5 distance for lite");
 
@@ -145,8 +144,7 @@ OrdersRouter.post('/orders', authorizationMiddleware, (req, res) => {
 
   case "universal":
 
-    order.distance = roundedDistance * 3;
-    console.log(ORDERS.distance)
+    order.price = roundedDistance * 3;
 
     console.log("You have to pay an extra 3 distance for universal");
 
@@ -158,10 +156,7 @@ OrdersRouter.post('/orders', authorizationMiddleware, (req, res) => {
     res.status(400).send({ message: "Sorry, we cant find this option, you can only chose betwen: standart, lite, universal."});
 }
 
-
-
-
- return res.status(200).send({ message: 'Order was created', order });
+ ORDERS.push(order);
 });
 
 

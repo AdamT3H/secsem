@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import { authorizationMiddleware } from '../middlewares.js';
-import { ORDERS, USERS } from '../db.js';
+import { USERS } from '../db.js';
 
 export const UsersRouter = Router();
 
@@ -8,39 +7,17 @@ export const UsersRouter = Router();
 UsersRouter.post('/users', (req, res) => {
     const { body } = req;
   
-    // console.log(`body`, JSON.stringify(body));
-  
     const isUserExist = USERS.some(el => el.login === body.login);
-    const user = USERS.find(el => el.login === body.login && el.password === body.password);
 
-    // const userRole = "Customer";
-  
-    // user.role = userRole;
-    // USERS.save({ userRole });
-    // console.log(USERS)
-
-    // console.log(user)
     if (isUserExist) {
       return res.status(400).send({ message: `user with login ${body.login} already exists` });
     }
-
-    // const userRole = "Customer";
-  
-    // USERS.role({ userRole });
-
-    // console.log(USERS)
 
     const recreateUser = {
         ...body,
         role: "Customer",
     };
       
-    //    ORDERS.push(recreateUser);
-
-    // user.role = role;
-    // USERS.save(user.login, { role });
-  
-    // USERS.push(body);
     USERS.push(recreateUser);
     console.log(USERS)
   
@@ -49,7 +26,7 @@ UsersRouter.post('/users', (req, res) => {
 
 UsersRouter.post('/admin', (req, res) => {
 
-  const { body, headers } = req;
+  const { body } = req;
 
   const isAdminExist = USERS.some(el => el.login === body.login);
 
@@ -57,8 +34,8 @@ UsersRouter.post('/admin', (req, res) => {
     return res.status(400).send({ message: `User with login ${body.login} already exists` })
   };
 
-  headers.SUPER_PASSWORD = "dfdf";
-  console.log(headers.SUPER_PASSWORD)
+  const SUPER_PASSWORD = "123456789000";
+  console.log(SUPER_PASSWORD)
 
   const recreateAdmin = {
     ...body,
@@ -67,7 +44,7 @@ UsersRouter.post('/admin', (req, res) => {
   
   USERS.push(recreateAdmin);
 
-  res.status(200).send({message: 'Admin was created' });
+  res.status(200).send({message: 'Admin was created', token: SUPER_PASSWORD});
 
 });
 
@@ -93,6 +70,7 @@ UsersRouter.post('/drivers', (req, res) => {
 });
 
 UsersRouter.get('/users', (req, res) => {
+
     const users = USERS.map(user => {
       const { password, ...other } = user;
       return other;
@@ -124,4 +102,3 @@ UsersRouter.post('/login', (req, res) => {
       message: 'User was login'
     });
 });
-

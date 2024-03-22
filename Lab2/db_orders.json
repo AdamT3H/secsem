@@ -3,11 +3,33 @@
     "from": "address - 1",
     "to": "address - 2",
     "type": "standart",
-    "login": "login-10",
-    "createdAt": "2024-03-20T00:00:00.000Z",
-    "status": "Active",
-    "id": "3ef91de3-3fe5-45dc-a54a-ff8778c780ca",
+    "login": "login-1",
+    "createdAt": "2024-03-22T00:00:00.000Z",
+    "status": "Rejected",
+    "id": "16404c06-f5da-4e62-bcf5-71a22a17660b",
     "distance": "1774 Km",
     "price": 4435
+  },
+  {
+    "from": "address - 1",
+    "to": "address - 3",
+    "type": "standart",
+    "login": "login-2",
+    "createdAt": "2024-03-22T00:00:00.000Z",
+    "status": "Active",
+    "id": "45382204-c731-47f7-acb1-32571ffb27a6",
+    "distance": "3625 Km",
+    "price": 9062.5
+  },
+  {
+    "from": "address - 1",
+    "to": "address - 4",
+    "type": "standart",
+    "login": "login-3",
+    "createdAt": "2024-03-22T00:00:00.000Z",
+    "status": "Done",
+    "id": "71660172-a5c2-479d-97d0-5986236e2556",
+    "distance": "823 Km",
+    "price": 2057.5
   }
 ]

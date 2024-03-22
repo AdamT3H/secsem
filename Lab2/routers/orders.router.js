@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { authorizationMiddleware } from '../middlewares.js';
-import { ORDERS, ADDRESS } from '../db.js';
+import { ORDERS, ADDRESS} from '../db.js';
 
 export const OrdersRouter = Router();
 
@@ -105,8 +105,6 @@ OrdersRouter.post('/orders', authorizationMiddleware, (req, res) => {
 
  const distance = distanceBetweenCoords(latitude1, longitude1, latitude2, longitude2);
  const roundedDistance = distance.toFixed();
-  // console.log(roundedDistance);
-  // console.log(distance)
 
  const order = {
   ...body,
@@ -118,7 +116,6 @@ OrdersRouter.post('/orders', authorizationMiddleware, (req, res) => {
   price: " "
  };
 
-//  ORDERS.push(order);
 
  switch(body.type){
 
@@ -164,12 +161,9 @@ OrdersRouter.post('/orders', authorizationMiddleware, (req, res) => {
 * GET /orders?createdAt=05-05-2024
 * GET /orders?createdAt= g mhdfbg kjdfbgkjd
 */
-OrdersRouter.get('/orders', authorizationMiddleware,
- convertToDateMiddleware('createdAt'),
- convertToDateMiddleware('createdFrom'),
- convertToDateMiddleware('createdTo'),
- (req, res) => {
-  const { user, query } = req;
+OrdersRouter.get('/orders', authorizationMiddleware, convertToDateMiddleware('createdAt'), convertToDateMiddleware('createdFrom'), convertToDateMiddleware('createdTo'), (req, res) => {
+  const { user, query} = req;
+  console.log("поіертвє юзера по токену",user)
 
   if (query.createdAt && query.createdFrom && query.createdTo) {
    return res.status(400).send({ message: "Too many parameter in query string" });
@@ -178,6 +172,7 @@ OrdersRouter.get('/orders', authorizationMiddleware,
   console.log(`query`, JSON.stringify(query));
 
   let orders = ORDERS.filter(el => el.login === user.login);
+  let ordersActive = ORDERS.filter(el => el.status === "Active");
 
   if (query.createdAt) {
 
@@ -216,7 +211,24 @@ OrdersRouter.get('/orders', authorizationMiddleware,
    }
   }
 
-  return res.status(200).send(orders);
+  console.log(user.role)
+
+  switch(user.role){
+
+    case "Customer":
+
+      return res.status(200).send(orders);
+
+    case "Admin":
+
+      return res.status(200).send(ORDERS);
+
+    case "Driver":
+
+      return res.status(200).send(ordersActive);
+
+  }
+
 });
 
 
@@ -228,9 +240,10 @@ OrdersRouter.get('/orders', authorizationMiddleware,
  * PATCH /orders/fhsdjkhfkd123sj
  */
 
-OrdersRouter.patch('/orders/:orderId', (req, res) => {
+OrdersRouter.patch('/orders/:orderId', authorizationMiddleware, (req, res) => {
 
- const { params } = req;
+  const { user, params, body} = req;
+  console.log("поіертвє юзера по токену", user)
 
  let order = ORDERS.find(el => el.id === params.orderId);
 
@@ -238,9 +251,51 @@ OrdersRouter.patch('/orders/:orderId', (req, res) => {
   return res.status(400).send({ message: `Order with id ${params.orderId} was not found` });
  }
 
- const { body } = req;
+ if (user.role === "Customer"){
 
- ORDERS.update((el) => el.id === params.orderId, { status: body.status });
+    if (order.status === "Active" && body.status === "Rejected"){
+
+      ORDERS.update((el) => el.id === params.orderId, { status: body.status });
+
+    }
+ };
+
+ if (user.role === "Driver"){
+
+  if (order.status === "Active" && body.status === "In progress"){
+
+    ORDERS.update((el) => el.id === params.orderId, { status: body.status });
+
+  };
+
+  if (order.status === "In progress" && body.status === "Done"){
+
+    ORDERS.update((el) => el.id === params.orderId, { status: body.status });
+
+  }
+ };
+
+ if (user.role === "Admin"){
+
+  if (order.status === "Active" && body.status === "Rejected"){
+
+    ORDERS.update((el) => el.id === params.orderId, { status: body.status });
+
+  }
+
+  if (order.status === "Active" && body.status === "In progress"){
+
+    ORDERS.update((el) => el.id === params.orderId, { status: body.status });
+
+  }
+
+  if (order.status === "In progress" && body.status === "Done"){
+
+    ORDERS.update((el) => el.id === params.orderId, { status: body.status });
+
+  }
+};
+
 
  order = ORDERS.find(el => el.id === params.orderId);
  return res.status(200).send(order);

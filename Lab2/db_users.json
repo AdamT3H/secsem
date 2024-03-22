@@ -4,51 +4,19 @@
     "lastName": "lastName-1",
     "login": "login-1",
     "password": "password-1",
-    "role": "Customer"
+    "role": "Customer",
+    "token": "5fd5781c-7b01-46dc-bc1f-7a823d66312b"
   },
   {
     "login": "login-2",
     "password": "password-1",
-    "role": "Admin"
+    "role": "Admin",
+    "token": "76e8026f-9f12-4738-83ff-0cdf16d19595"
   },
   {
     "login": "login-3",
     "password": "password-1",
-    "role": "Admin"
-  },
-  {
-    "login": "login-4",
-    "password": "password-1",
-    "role": "Admin"
-  },
-  {
-    "login": "login-5",
-    "password": "password-1",
-    "role": "Admin"
-  },
-  {
-    "login": "login-6",
-    "password": "password-1",
-    "role": "Admin"
-  },
-  {
-    "login": "login-7",
-    "password": "password-1",
-    "role": "Driver"
-  },
-  {
-    "firstName": "firstName-1",
-    "lastName": "lastName-1",
-    "login": "login-9",
-    "password": "password-1",
-    "role": "Customer"
-  },
-  {
-    "firstName": "firstName-1",
-    "lastName": "lastName-1",
-    "login": "login-10",
-    "password": "password-1",
-    "role": "Customer",
-    "token": "c88e37e4-fbde-4cc4-a6a4-4668f3facafe"
+    "role": "Driver",
+    "token": "67f59ea7-7e25-4a8e-9bf0-89da88bfba02"
   }
 ]

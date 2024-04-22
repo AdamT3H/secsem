@@ -11,4 +11,9 @@ export class OrderDto {
   @IsString()
   @IsNotEmpty()
   to: string;
+
+  @ApiProperty({ type: String })
+  @IsString()
+  @IsNotEmpty()
+  type: string;
 }

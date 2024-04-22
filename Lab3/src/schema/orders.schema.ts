@@ -14,6 +14,18 @@ export class Orders {
 
   @Prop({ type: String, required: true })
   login: string;
+
+  @Prop({ type: String, required: true })
+  Status: string;
+
+  @Prop({ type: String, required: true })
+  id: any;
+
+  @Prop({ type: Number, required: false })
+  distance: number;
+
+  @Prop({ type: String, required: false })
+  type: string;
 }
 
 export const OrdersSchema = SchemaFactory.createForClass(Orders);

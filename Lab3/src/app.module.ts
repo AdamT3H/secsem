@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { UsersController } from './controllers/users.controller';
 import { UserService } from './service/user.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Orders, OrdersSchema, UserSchema, Users } from './schema';
+import { Orders, Addresses, AddressesSchema, OrdersSchema, UserSchema, Users } from './schema';
 import { UserAuthorizationMiddleware } from './midellware/userAuthorization.middleware';
 import { OrdersController } from './controllers/orders.controller';
 import { OrderService } from './service';
@@ -21,6 +21,10 @@ import { OrderService } from './service';
       {
         name: Orders.name,
         schema: OrdersSchema,
+      },
+      {
+        name: Addresses.name,
+        schema: AddressesSchema,
       },
     ]),
   ],

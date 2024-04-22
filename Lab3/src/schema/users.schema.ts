@@ -3,10 +3,10 @@ import { Types, Document } from 'mongoose';
 
 @Schema({ collection: 'users' })
 export class Users {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: false })
   firstName: string;
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: false })
   lastName: string;
 
   @Prop({ type: String, required: true })
@@ -14,6 +14,9 @@ export class Users {
 
   @Prop({ type: String, required: true })
   password: string;
+
+  @Prop({ type: String, required: true})
+  role: string;
 
   @Prop({ type: String, required: false })
   token?: string;

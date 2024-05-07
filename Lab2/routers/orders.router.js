@@ -71,6 +71,7 @@ OrdersRouter.post('/orders', authorizationMiddleware, (req, res) => {
  const bodyToAddress = body.to;
  const bodyFromAddress = body.from;
  const FindToAddressInBd = ADDRESS.find(({name}) => name === bodyToAddress);
+ console.log(FindToAddressInBd)
  const FindFromAddressInBd = ADDRESS.find(({name}) => name === bodyFromAddress);
 
  if (!FindToAddressInBd || !FindFromAddressInBd){

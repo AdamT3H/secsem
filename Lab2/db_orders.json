@@ -31,5 +31,16 @@
     "id": "71660172-a5c2-479d-97d0-5986236e2556",
     "distance": "823 Km",
     "price": 2057.5
+  },
+  {
+    "from": "address - 5",
+    "to": "address - 2",
+    "type": "universal",
+    "login": "login-1",
+    "createdAt": "2024-04-22T23:00:00.000Z",
+    "status": "Active",
+    "id": "89039013-7359-4c8a-9135-f1ff08e56934",
+    "distance": "1025 Km",
+    "price": 3075
   }
 ]
